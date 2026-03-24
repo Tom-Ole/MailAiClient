@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import type { MailDTO, MailDtoRes } from "../routes/api/mail/+server";
+  import { formatSender } from "./utils";
+  import EmailListElement from "./EmailListElement.svelte";
 
     let mails: MailDTO[] = $state([]);
     let loading = $state(true);
@@ -29,11 +31,7 @@
 {:else}
     <ul>
         {#each mails as mail}
-            <li>
-                <strong>{mail.subject}</strong><br />
-                <small>{mail.sender} - {mail.date}</small>
-                <!-- <p>{mail.body}</p> -->
-            </li>
+            <EmailListElement mail={mail}></EmailListElement>
         {/each}
     </ul>
 {/if}

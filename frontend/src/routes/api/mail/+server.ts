@@ -6,7 +6,10 @@ export interface MailDTO {
     receiver: string,
     subject: string,
     date: string,
+    timezone: string,
     body: string,
+    bodyHtml: string,
+    bodyPlain: string
 }
 
 export interface MailDtoRes {
@@ -26,6 +29,8 @@ export async function GET({url, fetch}) {
     }
 
     const data = await res.json() as MailDtoRes
+
+    console.log(JSON.stringify(data.mails[0].bodyPlain, null, 2))
 
 
     return new Response(JSON.stringify(data), {
