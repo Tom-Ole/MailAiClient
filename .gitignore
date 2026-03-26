@@ -9,3 +9,5 @@ venv/
 
 
 .vscode/
+
+.flask_sessions
