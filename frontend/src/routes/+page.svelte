@@ -248,7 +248,6 @@
   onMount(() => {
     loadFolders();
     loadMails();
-
   });
 </script>
 
@@ -828,11 +827,38 @@
           </div>
 
           <!-- Mail body -->
-          <div class="flex-1 overflow-y-auto px-8 py-6">
+          <div class="flex-1 overflow-hidden flex flex-col">
             {#if activeMail.body_html}
-              <div class="mail-body prose-sm">
+              <!-- <div class="mail-body prose-sm">
                 {@html activeMail.body_html}
-              </div>
+              </div> -->
+              <iframe
+                srcdoc={`<!DOCTYPE html>
+                            <html>
+                            <head>
+                            <meta charset="utf-8">
+                            <style>
+                              html, body {
+                                margin: 0;
+                                background: #ffffff;
+                                color: #111111;
+                                font-family: sans-serif;
+                                font-size: 14px;
+                                line-height: 1.6;
+                              }
+                              img { max-width: 100%; }
+                              a { color: #d97706; }
+                            </style>
+                            </head>
+                            <body>${activeMail.body_html}</body>
+                            </html>`
+                        }
+                sandbox="allow-same-origin allow-popups"
+                class="w-full border-0"
+                style="flex: 1; min-height: 0; height: 100%;"
+                title="Mail body"
+              >
+              </iframe>
             {:else}
               <pre
                 class="text-white/60 text-xs leading-relaxed whitespace-pre-wrap font-mono">{decodeUTF7(
