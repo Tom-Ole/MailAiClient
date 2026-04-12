@@ -74,6 +74,11 @@ def get_mail(uid):
     folder = request.args.get("folder", "INBOX")
     imap = get_imap()
     mail = get_mail_by_uid(imap, uid=uid, folder=folder)
+
+    # print content to file for debugging
+    # with open("mail_content.txt", "w", encoding="utf-8") as f:
+    #     f.write(mail.body)
+
     if not mail:
         return jsonify({"error": "Not found"}), 404
     return jsonify(_dto_to_dict(mail))

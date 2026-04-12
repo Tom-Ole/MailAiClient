@@ -45,6 +45,8 @@
   let composing = $state(false);
   let page_num = $state(1);
 
+  let textSummary = $state("");
+
   // ── Folder icon map ──────────────────────────────────────────────────────
   function folderIcon(name: string): string {
     const n = name.toLowerCase();
@@ -177,8 +179,24 @@
       activeMail = await res.json();
       // mark read locally
       mails = mails.map((m) => (m.uid === uid ? { ...m, is_read: true } : m));
+
+      textSummary = "Generating Summary..."
+      loadSummary(uid);
+
+
     }
     loadingMail = false;
+  }
+
+  async function loadSummary(uid: string) {
+    const res = await fetch(`/api/mail/${uid}/summary`);
+
+    if (res.ok) {
+      const data = await res.json();
+      textSummary = data.summary;
+    } else {
+      textSummary = "";
+    }
   }
 
   async function doSearch() {
@@ -911,8 +929,12 @@
         class="shrink-0 bg-[#0e0e11] flex items-center justify-center"
         style="flex: 2;"
       >
-        <p class="text-white/10 text-xs tracking-widest uppercase">
-          - reserved -
+        <p class="text-white/50 text-xs tracking-widest uppercase w-3/4 text-center">
+          {#if textSummary != ""}
+            {textSummary}
+          {:else}
+            No preview available
+          {/if}
         </p>
       </div>
     </div>

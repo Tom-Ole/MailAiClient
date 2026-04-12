@@ -4,7 +4,7 @@ from flask_session import Session
 
 from config import Config
 from util.connections import teardown_connections
-from routes import auth, mail, folders, compose
+from routes import auth, mail, folders, compose, ai
 
 
 def create_app() -> Flask:
@@ -18,6 +18,7 @@ def create_app() -> Flask:
     app.register_blueprint(mail.bp)
     app.register_blueprint(folders.bp)
     app.register_blueprint(compose.bp)
+    app.register_blueprint(ai.bp)
 
 
     app.teardown_appcontext(teardown_connections)
