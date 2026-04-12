@@ -11,3 +11,5 @@ venv/
 .vscode/
 
 .flask_sessions
+
+safetensors/
