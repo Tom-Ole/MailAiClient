@@ -34,7 +34,7 @@ def send():
     Multipart form OR JSON.
 
     Fields:
-        to          (required) comma-sep string or JSON array
+        to          (required)
         subject     (required)
         body_plain  (required)
         body_html   (optional)
